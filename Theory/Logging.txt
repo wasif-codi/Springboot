@@ -1,1 +1,89 @@
 
+## 📝 Logging in Spring Boot 
+
+### 1️⃣ What is Logging?
+
+Logging is the process of **recording application events** for:
+
+* Debugging
+* Monitoring
+* Auditing
+* Troubleshooting in production
+
+---
+
+### 2️⃣ Logging Architecture (High Level)
+
+Application Code
+      ↓
+SLF4J (Logging Facade)
+      ↓
+Logging Framework (Logback / Log4j2)
+      ↓
+Logger → Appender → Encoder
+      ↓
+Console / File / ELK
+### 3️⃣ SLF4J (Simple Logging Facade for Java)
+
+* **NOT a logging framework**
+* It is a **facade (abstraction layer)**
+* Provides common logging API
+* Delegates logging to actual framework
+* Enables easy framework switching
+
+**Example**
+
+```java
+Logger logger = LoggerFactory.getLogger(ClassName.class);
+### 4️⃣ Logging Framework
+
+A logging framework is the **actual implementation** that:
+
+* Writes logs
+* Manages log levels
+* Handles formatting
+* Supports rolling & async logging
+
+**Examples**
+* Logback (Spring Boot default)
+* Log4j2
+* java.util.logging (JUL)
+### 5️⃣ Why Use SLF4J?
+
+* Loose coupling
+* Cleaner code
+* No framework dependency
+* Industry standard
+* Used by Spring, Hibernate, Kafka
+### 6️⃣ Log Levels
+```
+TRACE < DEBUG < INFO < WARN < ERROR
+If level = INFO → INFO, WARN, ERROR printed
+---
+### 7️⃣ Logger
+
+* Created per class
+* Filters logs based on level
+* Entry point for logging calls
+---
+### 8️⃣ Appender
+
+Defines **where logs go**:
+
+* ConsoleAppender
+* FileAppender
+---
+### 9️⃣ Encoder
+Defines **log format**:
+
+* Timestamp
+* Level
+* Class name
+* Message
+
+### 1️⃣1️⃣ Centralized Logging (Microservices)
+
+Service → File / STDOUT → Logstash → Elasticsearch → Kibana
+### 1️⃣2️⃣ Interview One-Liner
+
+> **Spring Boot logging uses SLF4J as a facade and Logback as the default logging framework, where logs flow through logger, appender, and encoder before reaching the destination.
