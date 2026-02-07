@@ -1,30 +1,51 @@
-Spring Bean Life cycle:
+Spring Bean Life cycle
+=====================
 Bean Life Cycle:
 Instantiate → Inject → Aware → Before Init → Initialize → After Init → Use → Destroy
 
 1. Instantiate
-
 Spring creates the bean object using constructor.
+
 2. Inject
-
 Spring injects all dependencies (@Autowired, setters, constructors).
+
 3. Aware
-
 Spring provides context info if bean implements Aware interfaces.
+
 4. Before Init
-
 Spring runs BeanPostProcessor before initialization.
+
 5. Initialize
-
 Custom initialization logic runs (@PostConstruct, init methods).
+
+ @PostConstruct
+    public void init() {
+        System.out.println("DB connected");
+    }
+
+       @PostConstruct
+public void loadCache() {
+    users = userRepository.findAll();
+}
+
+
 6. After Init
-
 Spring applies proxies (AOP, transactions, security).
+
 7. Use
-
 Bean is fully ready and serves application requests.
-8. Destroy
 
+  @PreDestroy
+    public void close() {
+        System.out.println("DB connection closed");
+    }
+
+     @PreDestroy
+     public void shutdownPool() {
+     executorService.shutdown();
+}
+
+8. Destroy
 Spring cleans resources before shutting down (@PreDestroy).
 
 
@@ -44,15 +65,7 @@ public void loadCache() {
 
 
 
-    @PreDestroy
-    public void close() {
-        System.out.println("DB connection closed");
-    }
-
-     @PreDestroy
-     public void shutdownPool() {
-     executorService.shutdown();
-}
+  
 
 
 }
