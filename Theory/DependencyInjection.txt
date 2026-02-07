@@ -1,0 +1,11 @@
+Dependency injecton
+=================
+It's one of the SOLID principle D-> Dependency Inversion
+It's a way to inject dependency into a class 
+helps achies loose coupling. 
+Inject on run time .
+
+Three ways to achieve DI
+1. Field injection 
+2. Setter injcetion 
+3. Constructor injection
