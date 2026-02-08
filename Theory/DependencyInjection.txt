@@ -9,3 +9,60 @@ Three ways to achieve DI
 1. Field injection 
 2. Setter injcetion 
 3. Constructor injection
+
+1. Field injection
+==================
+in Field injection dependency is set into fields of class
+Advantage -> simple and easy to use.
+............
+Disadvantage of field injection
+=============================
+can not be used on immutable fields such as final field.
+chances of Null pointer exception.
+
+2. Setter injection
+===================
+Dependency is set using setter method.
+we have to annotate the method with @Autowired.
+
+Adv= dependency can be changed any time after objection creation.
+easy for junit testing .we can pass mock object easily
+Disadv.
+field can not be marked as final in setter injection
+difficult to read and maintain as per standards
+
+Constructor injection
+=====================
+Dependency is resolved at the time of object initialization.
+this constructor dependency is recommended.
+When 1 constructor is there @Autowired is not mandatory.
+Adv.
+All mandatory dependencies will be injected at the time of initailization.
+it makes sure that our object will be iniatilize with all required dependencies
+Avoids NPE
+We can create immutable objects using constructor injection.
+Fails fast ; fail at compilation only in case of any mising dependencies.
+
+Circular dependency 
+===================
+Circular Dependency happens when two classes depend on each other creating a loop.
+so object can not be created.
+To resolve circular dependency use 
+@Lazy on field or constructor
+ex . Order is being injected in user and user is being injcted in order hence form loop during bean creation 
+2. Use @Lazy
+@Component
+class A {
+    @Autowired
+    @Lazy
+    B b;
+} Creates object only when needed.
+
+Unsatisfied dependency 
+======================
+When not able to find the correct bean spring get confuse which one to inject when we have multiple impl classes of 1 interface
+To resolves it
+@Qualifer 
+@Primary 
+
+
